@@ -182,7 +182,7 @@ function handleDrop(draggedId, targetZone) {
             } else {
                 weightsInTankIds.push(draggedId);
                 sourceElement.style.visibility = 'hidden';
-                waterLevelSlider.disabled = true; // ✨ 슬라이더 비활성화
+                waterLevelSlider.disabled = true;
             }
         }
     } else { // targetZone is a pool
@@ -193,7 +193,7 @@ function handleDrop(draggedId, targetZone) {
                 sourceElement.style.visibility = 'visible';
             }
             if (weightsInTankIds.length === 0) {
-                waterLevelSlider.disabled = false; // ✨ 탱크가 비면 슬라이더 활성화
+                waterLevelSlider.disabled = false;
             }
         }
     }
@@ -277,7 +277,7 @@ waterLevelSlider.addEventListener('input', () => {
     updateWaterLevel();
 });
 
-// ✨ 비활성화된 슬라이더를 클릭했을 때 안내 메시지를 띄우는 부분
+// 비활성화된 슬라이더를 클릭했을 때 안내 메시지를 띄우는 부분
 waterLevelSlider.addEventListener('mousedown', () => {
     if (waterLevelSlider.disabled) {
         alert("메스실린더 안에 물체를 모두 꺼내주세요.");
@@ -294,3 +294,8 @@ showVolumeCheckbox.addEventListener('change', updateVolumeDisplay);
 
 // 초기화
 updateWaterLevel();
+
+// ✨✨✨ 추가된 부분: 모바일에서 길게 눌렀을 때 메뉴 뜨는 현상 방지 ✨✨✨
+document.querySelectorAll('.weight1, .weight2, .weight3, #waterLevelSlider').forEach(el => {
+  el.addEventListener('contextmenu', e => e.preventDefault());
+});

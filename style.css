@@ -51,7 +51,6 @@ body {
   left: 140px; /* 두 번째 보관함 위치 */
 }
 
-/* ✨ Added */
 #weight-pool3 {
   left: 250px; /* 세 번째 보관함 위치 */
 }
@@ -84,7 +83,6 @@ body {
   background-image: url('weight2.png');
 }
 
-/* ✨ Added section for animal weights */
 .weight3 {
   width: 50px;
   height: 50px;
@@ -108,8 +106,6 @@ body {
 .weight3[data-animal-type="dog"] {
   background-image: url('dog.png');
 }
-/* End of added section */
-
 
 .weight1.dragging,
 .weight2.dragging,
@@ -117,34 +113,52 @@ body {
   opacity: 0.5;
 }
 
-
-/* ✨ 변경된 부분: 탱크와 부피 표시를 묶는 영역의 위치를 기존 탱크 위치로 수정 */
 #simulation-area {
   display: flex;
   align-items: center;
   gap: 20px;
   position: absolute;
-  top: 220px;
+  top: 250px;
   left: 450px;
 }
 
-/* 🧪 탱크 영역 */
-#tank {
+/* ✨✨✨ 아래 블록들이 수정/추가되었습니다 ✨✨✨ */
+
+/* 실린더 이미지와 tank를 모두 감싸는 컨테이너 */
+#cylinder-container {
   position: relative;
+}
+
+/* 새로 추가된 실린더 이미지 스타일 */
+#cylinder-img {
+  position: absolute;
+  width: 165px;
+  height: 500px;
+  top: -40px;
+  left: -30px;
+  opacity: 0.2; /* 투명도 50% 설정 */
+  z-index: 5; /* 모든 요소보다 앞으로 나오도록 조정 */
+  pointer-events: none; /* 이미지 뒤의 요소와 상호작용 가능하도록 설정 */
+}
+
+/* 기존 tank 스타일 (z-index 및 position 수정) */
+#tank {
+  position: relative; /* z-index 적용을 위해 relative 설정 */
   width: 100px;
   height: 400px;
   background: #a0d8ef;
   border: 2px solid #0077b6;
   overflow: hidden;
+  z-index: 2; /* 이미지보다 뒤에 위치 (이미지 5, 물 2) */
 }
 
-/* 물에 잠긴 추들을 담는 컨테이너 */
+/* 물에 잠긴 추들을 담는 컨테이너 (z-index 수정) */
 #submerged-weights-container {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 3; /* 물보다 위에, 이미지보다 뒤에 (이미지 5, 추 3) */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -153,7 +167,7 @@ body {
     padding-bottom: 5px;
 }
 
-/* 💧 물 높이 */
+/* 물 높이 (z-index 수정) */
 #water-level {
   position: absolute;
   bottom: 0;
@@ -161,18 +175,19 @@ body {
   background: #0077b6;
   height: 200px;
   transition: height 0.3s ease;
-  z-index: 1;
+  z-index: 2; /* 이미지보다 뒤에 (이미지 5, 물 2) */
 }
 
-/* 📏 눈금 영역 */
+/* 눈금 영역 (z-index 수정) */
 #scale {
   position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 4; /* 이미지(5)와 물(2)/추(3) 사이에 위치 */
   pointer-events: none;
 }
+/* ✨✨✨ 수정/추가 끝 ✨✨✨ */
 
 .tick {
   position: absolute;
@@ -203,7 +218,7 @@ body {
 }
 
 .weight-label {
-  font-size: 14px; /* 폰트 크기 조정 */
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
@@ -211,7 +226,7 @@ body {
 }
 
 #volume-display-container {
-  display: none; /* 이 부분을 수정하여 보이지 않게 처리 */
+  display: none;
   flex-direction: column;
   gap: 10px;
   background: #f0f0f0e0;
@@ -233,11 +248,9 @@ body {
   color: #0077b6;
 }
 
-
-/* ✨ 변경된 부분: 컨트롤 패널 위치 복원 */
 #controls {
   position: fixed;
-  top: 550px; /* 기존 top 값으로 수정 */
+  top: 550px;
   left: 30px;
   width: 300px;
   background: #f0f0f0e0;
